@@ -47,7 +47,14 @@ function fetchProduits() {
       return response.json();
     })
     .then(data => {
+
+      let produitsASupprimer = data.filter(item => item.qte <= 0);
+      produitsASupprimer.forEach(item => {
+        supprimer(item.id);
+      });
       listeC.value = data.map(item => new Produit(item.id, item.nom, item.qte, item.photo));
+
+
     })
     .catch(error => {
       console.error('error', error);
@@ -74,12 +81,12 @@ function ajouter() {
         fetchProduits();
     })
     .catch(error => {
-      console.error('Error adding product:', error);
+      console.error('Error', error);
     });
 }
 
-function supprimer(productId) {
-  fetch(`${url}/${productId}`, {
+function supprimer(produitId) {
+  fetch(`${url}/${produitId}`, {
     method: 'DELETE'
   })
     .then(response => response.json())
@@ -92,34 +99,37 @@ function supprimer(productId) {
     });
 }
 
-function augmenter(product) {
-  product.qte++;
-  updateProduct(product);
+function augmenter(produit) {
+  produit.qte++;
+  updateProduct(produit);
 }
 
-function diminuer(product) {
-  if (product.qte > 0) {
-    product.qte--;
-    updateProduct(product);
+function diminuer(produit) {
+  if (produit.qte > 0) {
+    produit.qte--;
+    updateProduct(produit);
   }
 }
 
-function updateProduct(product) {
-  fetch(`${url}/${product.id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      nom: product.nom,
-      qte: product.qte,
-      photo: product.photo
-    })
-    
+function updateProduct(produit) {
+  if (produit.qte <= 0) {
+    supprimer(produit.id);
+    fetch(`${url}`, { 
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: produit.id,
+        nom: produit.nom,
+        qte: produit.qte,
+        photo: produit.photo
+      })
     })
     .catch(error => {
       console.error('error', error);
     });
+  }
 }
 
 function rechercher() {
