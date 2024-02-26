@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <h1>Mon Frigo</h1>
-    <BarreRecherche @search="rechercher" />
+    <div>
+      <h2>Rechercher des produits</h2>
+      <input type="text" v-model="aTrouver" placeholder="Rechercher..." />
+      <button @click="rechercher()">Rechercher</button>
+    </div>
     <div class="ajout">
       <h2>Ajouter un produit</h2>
       <input type="text" v-model="Nnom" placeholder="Nom du produit" />
@@ -24,7 +28,6 @@
 </template>
 
 <script>
-import BarreRecherche from './BarreRecherche.vue';
 import BlocProduit from './BlocProduit.vue';
 
 import Produit from '../Produit';
@@ -138,7 +141,6 @@ fetchProduits();
 
 export default {
   components: {
-    BarreRecherche,
     BlocProduit
   },
   data() {
