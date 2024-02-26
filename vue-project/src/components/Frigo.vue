@@ -111,6 +111,7 @@ function diminuer(produit) {
 function updateProduct(produit) {
   if (produit.qte <= 0) {
     supprimer(produit.id);
+  }
     fetch(`${url}`, { 
       method: 'PUT',
       headers: {
@@ -126,7 +127,7 @@ function updateProduct(produit) {
     .catch(error => {
       console.error('error', error);
     });
-  }
+  
 }
 
 function rechercher() {

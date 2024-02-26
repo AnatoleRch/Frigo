@@ -2,7 +2,6 @@
 import { defineEmits, defineProps } from "vue";
 
 defineProps(["pdt", "supprimer","augmenter", "diminuer"]);
-defineEmits([]);
 </script>
 
 <template>
