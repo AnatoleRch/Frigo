@@ -1,9 +1,3 @@
-<script setup>
-import { defineEmits, defineProps } from "vue";
-
-defineProps(["pdt", "supprimer"]);
-defineEmits(["augmenter", "diminuer"]);
-</script>
 
 <template>
 <div class="product">
@@ -17,6 +11,12 @@ defineEmits(["augmenter", "diminuer"]);
     </div>
 </div>
 </template>
+
+<script setup>
+import { defineEmits, defineProps } from "vue";
+defineProps(["pdt", "supprimer"]);
+defineEmits(["augmenter", "diminuer"]);
+</script>
 
 <style>
 .product {
