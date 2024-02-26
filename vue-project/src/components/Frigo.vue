@@ -176,25 +176,11 @@ export default {
   width: 600px;
   height: 1100px;
 }
-.product {
-  text-align: center;
-  background : lightblue  ;
-  color :black ;
-  height: 180px;
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-top: 35px;
-  margin-bottom: 0px;
-
-}
 .ajout {
   
   margin-bottom: 1em;
   
 }
-img {
-  width : 80px;
-  height : 80px;
-}
+
 
 </style>
