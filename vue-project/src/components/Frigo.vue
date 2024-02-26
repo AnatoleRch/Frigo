@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <h1>Mon Frigo</h1>
-    <div>
-      <h2>Rechercher des produits</h2>
-      <input type="text" v-model="aTrouver" placeholder="Rechercher..." />
-      <button @click="rechercher()">Rechercher</button>
-    </div>
+    <BarreRecherche @search="rechercher" />
     <div class="ajout">
       <h2>Ajouter un produit</h2>
       <input type="text" v-model="Nnom" placeholder="Nom du produit" />
@@ -15,21 +11,22 @@
     </div>
     <br>
     <div class="frigo">
-      <div class="product" v-for="pdt in listeC" :key="pdt.id">
-        <img :src="pdt.photo"/>
-        <div>
-          <h3>{{ pdt.nom }}</h3>
-          <p>Quantité: {{ pdt.qte }}</p>
-          <button @click="augmenter(pdt)">+1</button>
-          <button @click="diminuer(pdt)">-1</button>
-          <button @click="supprimer(pdt.id)">Supprimer</button>
-        </div>
-      </div>
+      <BlocProduit
+        v-for="pdt of listeC"
+        :key="pdt.id"
+        :pdt="pdt"
+        :supprimer="supprimer"
+        @augmenter="augmenter"
+        @diminuer="diminuer"
+      ></BlocProduit>
     </div>
   </div>
 </template>
 
 <script>
+import BarreRecherche from './BarreRecherche.vue';
+import BlocProduit from './BlocProduit.vue';
+
 import Produit from '../Produit';
 import { ref } from "vue";
 
@@ -139,6 +136,10 @@ function rechercher() {
 fetchProduits();
 
 export default {
+  components: {
+    BarreRecherche,
+    BlocProduit
+  },
   data() {
     return {
       Nnom,
@@ -172,25 +173,10 @@ export default {
   width: 600px;
   height: 1100px;
 }
-.product {
-  text-align: center;
-  background : lightblue  ;
-  color :black ;
-  height: 180px;
-  margin-left: 30px;
-  margin-right: 30px;
-  margin-top: 35px;
-  margin-bottom: 0px;
-
-}
 .ajout {
   
   margin-bottom: 1em;
   
-}
-img {
-  width : 80px;
-  height : 80px;
 }
 
 </style>
