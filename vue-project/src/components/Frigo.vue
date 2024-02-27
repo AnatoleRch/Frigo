@@ -9,7 +9,7 @@
     <div class="ajout">
       <h2>Ajouter un produit</h2>
       <input type="text" v-model="Nnom" placeholder="Nom du produit" />
-      <input type="number" v-model.number="Nqte" placeholder="Quantité" />
+      <input type="number" v-model.number="Nqte" placeholder="Quantité" min="1" />
       <input type="text" v-model="Nphoto" placeholder="URL de la photo" />
       <button @click="ajouter()">Ajouter</button>
     </div>
@@ -34,7 +34,7 @@ import Produit from '../Produit';
 import { ref } from "vue";
 
 const Nnom = ref("");
-const Nqte = ref(0);
+const Nqte = ref(1);
 const Nphoto = ref("");
 const aTrouver = ref("");
 const listeC = ref([]);
@@ -76,7 +76,7 @@ function ajouter() {
     .then(response => response.json())
     .then(dataJSON => {
         Nnom.value = "";
-        Nqte.value = 0;
+        Nqte.value = 1;
         Nphoto.value = "";
         fetchProduits();
     })
